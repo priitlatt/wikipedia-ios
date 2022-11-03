@@ -13,11 +13,11 @@ workflows:
       - script@1:
           title: Building Project
           inputs:
-            - content: xcodebuild build -project "Wikipedia.xcodeproj" -scheme "Wikipedia" -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 13,OS=16.1' -configuration Debug CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+            - content: xcodebuild build -project "Wikipedia.xcodeproj" -scheme "Wikipedia" -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.1' -configuration Debug CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
       - script@1:
           title: Running Tests
           inputs:
-            - content: xcodebuild build -project "Wikipedia.xcodeproj" -scheme "Wikipedia" -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 13,OS=16.1' test
+            - content: xcodebuild build -project "Wikipedia.xcodeproj" -scheme "Wikipedia" -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.1' test
 
 meta:
   bitrise.io:
