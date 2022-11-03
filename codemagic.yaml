@@ -14,11 +14,7 @@ definitions:
       script: xcodebuild build -project "Wikipedia.xcodeproj" -scheme "Wikipedia" -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 13,OS=16.1' -configuration Debug CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO 
     - &runTests
       name: Running Tests
-      script: |
-        xcode-project run-tests \
-        --project Wikipedia.xcodeproj \
-        --scheme Wikipedia \
-        --device "iPhone 13" \
+      script: xcodebuild build -project "Wikipedia.xcodeproj" -scheme "Wikipedia" -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 13,OS=16.1' test
       test_report: build/ios/test/*.xml  
 workflows:
   ios-mac-pro-workflow:
