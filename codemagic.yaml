@@ -1,6 +1,9 @@
 definitions:
   env_versions: &env_versions
     xcode: 14.1
+    vars:
+      XCODE_PROJECT: "Wikipedia.xcodeproj"
+      XCODE_iOS_SCHEME: "Wikipedia"
   triggering:
     push: &push_event
       events:
@@ -14,8 +17,18 @@ definitions:
       script: xcodebuild build -project "Wikipedia.xcodeproj" -scheme "Wikipedia" -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.1' -configuration Debug CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO > /tmp/build.log 
     - &runTests
       name: Running Tests
-      script: xcodebuild build -project "Wikipedia.xcodeproj" -scheme "Wikipedia" -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.1' test > /tmp/test.log
-      test_report: build/ios/test/*.xml  
+      script: xcodebuild build -project "Wikipedia.xcodeproj" -scheme "Wikipedia" -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.1' test
+      - &run_tests
+    - &runTestsCLI
+      name: Run iOS UI and Unit tests with Codemagic CLI
+      script: |
+        xcode-project run-tests \
+          --project "$XCODE_PROJECT" \
+          --scheme "$XCODE_iOS_SCHEME" \
+          --device "iPhone 14"
+    - &run_ios_tests_without_logs
+      name: Run iOS UI and Unit tests without Logs
+      script: xcodebuild build -project "$XCODE_PROJECT" -scheme "$XCODE_iOS_SCHEME" -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.1' test > /tmp/test.log
 workflows:
   ios-mac-pro-workflow:
     name: iOS Mac Pro Workflow
@@ -39,3 +52,16 @@ workflows:
       - *installScripts
       - *build
       - *runTests
+   ios-m1-mac-mini-tests-workflow:
+    name: iOS M1 Mac Mini Tests Workflow
+    instance_type: mac_mini_m1
+    environment:
+      <<: *env_versions
+    triggering:
+      <<: *push_event
+    scripts:
+      - *installScripts
+      - *build
+      - *runTests
+      - *runTestsCLI
+      - *run_ios_tests_without_logs
