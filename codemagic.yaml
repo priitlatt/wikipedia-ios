@@ -18,7 +18,6 @@ definitions:
     - &runTests
       name: Running Tests
       script: xcodebuild build -project "Wikipedia.xcodeproj" -scheme "Wikipedia" -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.1' test
-      - &run_tests
     - &runTestsCLI
       name: Run iOS UI and Unit tests with Codemagic CLI
       script: |
