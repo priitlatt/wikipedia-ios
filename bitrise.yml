@@ -1,6 +1,6 @@
 ---
 format_version: "11"
-default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+default_step_lib_source: "https://github.com/bitrise-io/bitrise-steplib.git"
 project_type: other
 workflows:
   benchmark:
@@ -11,14 +11,28 @@ workflows:
           inputs:
             - content: ./scripts/setup
       - script@1:
-          title: Building Project
+          title: Build project
           inputs:
-            - content: xcodebuild build -project "Wikipedia.xcodeproj" -scheme "Wikipedia" -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.1' -configuration Debug CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO > /tmp/build.log
+            - content: |
+                xcodebuild build \
+                  -project "Wikipedia.xcodeproj" \
+                  -scheme "Wikipedia" \
+                  -sdk iphonesimulator \
+                  -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.1' \
+                  -configuration Debug \
+                  CODE_SIGN_IDENTITY="" \
+                  CODE_SIGNING_REQUIRED=NO \
+                  CODE_SIGNING_ALLOWED=NO
       - script@1:
           title: Running Tests
           inputs:
-            - content: xcodebuild build -project "Wikipedia.xcodeproj" -scheme "Wikipedia" -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.1' test > /tmp/test.log
-
+            - content: |
+                xcodebuild build \
+                  -project "Wikipedia.xcodeproj" \
+                  -scheme "Wikipedia" \
+                  -sdk iphonesimulator \
+                  -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.1' \
+                  test
 meta:
   bitrise.io:
     stack: osx-xcode-14.1.x
