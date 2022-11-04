@@ -51,7 +51,7 @@ workflows:
       - *installScripts
       - *build
       - *runTests
-   ios-m1-mac-mini-tests-workflow:
+  ios-m1-mac-mini-tests-workflow:
     name: iOS M1 Mac Mini Tests Workflow
     instance_type: mac_mini_m1
     environment:
