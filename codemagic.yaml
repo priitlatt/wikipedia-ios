@@ -3,7 +3,7 @@ definitions:
     xcode: 14.1
     vars:
       XCODE_PROJECT: "Wikipedia.xcodeproj"
-      XCODE_iOS_SCHEME: "Wikipedia"
+      XCODE_SCHEME: "Wikipedia"
   triggering:
     push: &push_event
       events:
@@ -23,13 +23,13 @@ definitions:
           -configuration Debug \
           CODE_SIGN_IDENTITY="" \
           CODE_SIGNING_REQUIRED=NO \
-          CODE_SIGNING_ALLOWED=NO 
+          CODE_SIGNING_ALLOWED=NO > /tmp/build.log
     - &runTests
       name: Run iOS UI and Unit tests
       script: |
         xcode-project run-tests \
           --project "$XCODE_PROJECT" \
-          --scheme "$XCODE_iOS_SCHEME" \
+          --scheme "$XCODE_SCHEME" \
           --device "iPhone 14"
 workflows:
   ios-mac-pro-workflow:
