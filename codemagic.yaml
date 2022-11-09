@@ -1,13 +1,8 @@
 definitions:
   env_versions: &env_versions
-    xcode: 14.1
     vars:
       XCODE_PROJECT: "Wikipedia.xcodeproj"
       XCODE_SCHEME: "Wikipedia"
-  triggering:
-    push: &push_event
-      events:
-        - push
   scripts:
     - &installScripts
       name: Installing Scripts
@@ -23,7 +18,7 @@ definitions:
           -configuration Debug \
           CODE_SIGN_IDENTITY="" \
           CODE_SIGNING_REQUIRED=NO \
-          CODE_SIGNING_ALLOWED=NO > /tmp/build.log
+          CODE_SIGNING_ALLOWED=NO
     - &runTests
       name: Run iOS UI and Unit tests
       script: |
@@ -32,18 +27,7 @@ definitions:
           --scheme "$XCODE_SCHEME" \
           --device "iPhone 14"
 workflows:
-  ios-mac-pro-workflow:
-    name: iOS Mac Pro Workflow
-    instance_type: mac_pro
-    environment:
-      <<: *env_versions
-    triggering:
-      <<: *push_event
-    scripts:
-      - *installScripts
-      - *build
-      - *runTests
-  ios-m1-mac-mini-workflow:
+  ios:
     name: iOS M1 Mac Mini Workflow
     instance_type: mac_mini_m1
     environment:
@@ -53,4 +37,4 @@ workflows:
     scripts:
       - *installScripts
       - *build
-      - *runTests
+#       - *runTests
