@@ -21,6 +21,14 @@ definitions:
     - &runTests
       name: Run iOS UI and Unit tests
       script: |
+        xcodebuild build \
+          -project "Wikipedia.xcodeproj" \
+          -scheme "Wikipedia" \
+          -sdk iphonesimulator \
+          test
+    - &runTestsPretty
+      name: Run iOS UI and Unit tests
+      script: |
         xcode-project run-tests \
           --project "$XCODE_PROJECT" \
           --scheme "$XCODE_SCHEME" \
@@ -33,3 +41,4 @@ workflows:
     scripts:
       - *installScripts
       - *build
+      - *runTests
