@@ -17,7 +17,7 @@ definitions:
           -configuration Debug \
           CODE_SIGN_IDENTITY="" \
           CODE_SIGNING_REQUIRED=NO \
-          CODE_SIGNING_ALLOWED=NO
+          CODE_SIGNING_ALLOWED=NO > /tmp/xcodebuild.log
     - &runTests
       name: Run iOS UI and Unit tests
       script: |
