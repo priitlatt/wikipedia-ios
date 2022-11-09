@@ -28,7 +28,6 @@ definitions:
           --device "iPhone 14"
 workflows:
   ios:
-    name: iOS M1 Mac Mini Workflow
     instance_type: mac_mini_m1
     environment:
       <<: *env_versions
