@@ -32,8 +32,6 @@ workflows:
     instance_type: mac_mini_m1
     environment:
       <<: *env_versions
-    triggering:
-      <<: *push_event
     scripts:
       - *installScripts
       - *build
