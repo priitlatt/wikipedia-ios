@@ -9,7 +9,7 @@ definitions:
       script: ./scripts/setup
     - &build
       name: Building Project 
-      script: | 
+      script: |
         xcodebuild build \
           -project "$XCODE_PROJECT" \
           -scheme "$XCODE_SCHEME" \
@@ -17,7 +17,7 @@ definitions:
           -configuration Debug \
           CODE_SIGN_IDENTITY="" \
           CODE_SIGNING_REQUIRED=NO \
-          CODE_SIGNING_ALLOWED=NO
+          CODE_SIGNING_ALLOWED=NO | xcpretty && exit ${PIPESTATUS[0]}
     - &runTests
       name: Run iOS UI and Unit tests
       script: |
