@@ -43,4 +43,4 @@ workflows:
     scripts:
       - *installScripts
       - *build
-      - *runTests
+#       - *runTests
