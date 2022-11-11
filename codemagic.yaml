@@ -10,7 +10,7 @@ definitions:
     - &build
       name: Building Project 
       script: |
-        xcodebuild build \
+        time xcodebuild build \
           -project "$XCODE_PROJECT" \
           -scheme "$XCODE_SCHEME" \
           -sdk iphonesimulator \
@@ -22,7 +22,7 @@ definitions:
     - &runTests
       name: Run iOS UI and Unit tests
       script: |
-        xcodebuild build \
+        time xcodebuild build \
           -project "Wikipedia.xcodeproj" \
           -scheme "Wikipedia" \
           -sdk iphonesimulator \
@@ -31,7 +31,7 @@ definitions:
     - &runTestsPretty
       name: Run iOS UI and Unit tests
       script: |
-        xcode-project run-tests \
+        time xcode-project run-tests \
           --project "$XCODE_PROJECT" \
           --scheme "$XCODE_SCHEME" \
           --device "iPhone 14"
@@ -43,4 +43,4 @@ workflows:
     scripts:
       - *installScripts
       - *build
-#       - *runTests
+      - *runTests
