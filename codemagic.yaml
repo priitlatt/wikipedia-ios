@@ -37,7 +37,7 @@ definitions:
           --device "iPhone 14"
 workflows:
   ios:
-    instance_type: mac_mini_m1
+    instance_type: mac_pro
     environment:
       <<: *env_versions
     scripts:
